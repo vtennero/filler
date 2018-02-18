@@ -15,4 +15,23 @@
 
 # include "../libft/libft.h"
 
+typedef int		t_bool;
+
+typedef struct	s_point
+{
+	int			x;
+	int			y;
+	int			score;
+}				t_point;
+
+typedef struct	s_global
+{
+	int			height;
+	int			width;
+	int			player;
+	int			**map;
+	char		**shape;
+	char		result[2];
+}				t_global;
+
 #endif

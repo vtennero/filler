@@ -6,13 +6,13 @@
 /*   By: vtennero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/11 18:10:42 by vtennero          #+#    #+#             */
-/*   Updated: 2018/02/11 18:10:53 by vtennero         ###   ########.fr       */
+/*   Updated: 2018/02/18 18:33:57 by vtennero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <filler.h>
 
-void		print_map(int **map, int height, int width)
+void		print_map(t_global *global)
 {
 	int		i;
 	int		j;
@@ -20,96 +20,130 @@ void		print_map(int **map, int height, int width)
 
 	dprintf(2, "PRINT MAP\n");
 	i = 0;
-	while (i < height)
+	while (i < global->height)
 	{
+		// dprintf(2, "line[%d]\n", i);
 		j = 0;
-		while (j < width)
+		while (j < global->width)
 		{
-			// dprintf(2, "line[%d]\n", j);
 			// dprintf(2, "map[%d][%d] = %d\n", i, j, map[i][j]);
-			dprintf(2, "%d", map[i][j]);
+			dprintf(2, "%d", global->map[i][j]);
 			j++;
-			if (j == width)
+			if (j == global->width)
 				write(2, "\n", 1);
 		}
 		i++;
 	}
 }
 
-int		*fill_line(char *str, int width)
+void		print_shape(t_global *global, int shape_height)
+{
+	int		j;
+
+	dprintf(2, "PRINT SHAPE\n");
+	j = 0;
+	while (j < shape_height)
+	{
+		dprintf(2, "%s\n", global->shape[j++]);
+	}	
+}
+
+void	assign_size(t_global *global, char **line)
+{
+	char	*str;
+
+	dprintf(2, "assign_size\n");
+	str = *line + 8;
+	// ft_putendl_fd(str, 2);
+	global->width = ft_atoi(ft_strchr(str, ' '));
+	global->height = ft_atoi(str);
+}
+
+void	assign_player(t_global *global, char **line)
+{
+	char	*str;
+
+	dprintf(2, "assign_player\n");
+	// ft_putendl_fd(*line, 2);
+	str = *line + 10;
+	// ft_putendl_fd(str, 2);
+	// write(2, &str[0], 1);
+	// write(2, "\n", 1);
+	if (str[0] == '1')
+		global->player = 1;
+	if (str[0] == '2')
+		global->player = 2;
+	else
+		ft_putendl_fd("player error", 2);
+
+}
+
+int		*fill_line(char *str, t_global *global)
 {
 	int	*new_line;
 	int	j;
 
 	j = 0;
-    new_line = (int *)malloc(width * sizeof(int));
-    ft_putendl_fd("str :", 2);
-    ft_putendl_fd(str, 2);
+	new_line = (int *)malloc(global->width * sizeof(int));
 
-	while (j < width)
-		{
-			if (str[j] == '.')
-				new_line[j] = 0;
-			else if (str[j] == 'O')
-				{
-					ft_putendl_fd("is O", 2);
-				new_line[j] = 1;
-				}
-			else
-				new_line[j] = 2;
-			j++;
-		}
+	dprintf(2, "fill_line\n");
+	// dprintf(2, "str = %s\n", str);
+	while (j < global->width)
+	{
+
+		// dprintf(2, "line[%d]\n", j);
+		if (str[j] == '.')
+			new_line[j] = 0;
+		else if (str[j] == 'O')
+			new_line[j] = 1;
+		else if (str[j] == 'X')
+			new_line[j] = 2;
+		else
+			new_line[j] = 7;
+		j++;
+	}
 	return (new_line);
 }
-
-// int		**fill_map(int height, int width)
-// {
-// 	int		i;
-// 	int		j;
-// 	int		**map;
-// 	char	*str;
-// 	char	**line;
-
-// 	dprintf(2, "FILL MAP\n");
-// 	i = 0;
-// 	j = 0;
-// 	map = NULL;
-
-// 	line = (char **)malloc(sizeof(char *));
-// 	map = (int **)malloc(height * sizeof(int *));
-// 	while (i < height)
-// 	{
-// 		get_next_line(0, line);
-// 		str = *(line + 4);
-// 		map[i] = fill_line(str, width);
-// 		i++;
-// 	}
-// 	return (map);
-// }
 
 int	main(void)
 {
 	int 	fd;
 	char 	**line;
-	int 	return_value;
+	// int 	return_value;
 	int		i;
-	int		height;
-	int		width;
 	int		j;
-	int		**map;
+	// int		**map;
 	char	*str;
+	t_global	global;
+
+	dprintf(2, "%s\n", "PLAYER VTENNERO");
+
 
 	i = 0;
 	j = 0;
-	height = 0;
-	width = 0;
-	dprintf(2, "%s\n", "PLAYER VTENNERO");
-	line = (char **)malloc(sizeof(char *));
 	fd = 0;
 
+	line = (char **)malloc(sizeof(char *));
+	ft_bzero(&global, sizeof(t_global));
+
+
 	// ft_putendl_fd("toto", 0);
-	while ((return_value = get_next_line(fd, line)) == 1)
+	while (1)
 	{
+
+		// dprintf(2, "i = %d\n", i);
+		if (i == 0)
+		{
+			dprintf(2, "i = %d\n", i);
+			get_next_line(fd, line);
+			assign_player(&global, line);
+			dprintf(2, "vtennero is player%d\n", global.player);
+			free(*line);
+			i++;
+		}
+
+		// while ((return_value = get_next_line(fd, line)) == 1)
+		// {
 		// ft_putendl_fd("line read :", 0);
 		// ft_putendl_fd(*line, 0);
 		// // dprintf(2, "LINE -----------------------%s\n", *line);
@@ -117,42 +151,84 @@ int	main(void)
 		{
 			// ft_putendl_fd("to parse :", 2);
 			// ft_putendl_fd(ft_strchr(*line + 8, ' '), 2);
-			width = ft_atoi(ft_strchr(*line + 8, ' '));
-			height = ft_atoi(*line + 8);
-		 	dprintf(2, "width: %d\n", width);
-			dprintf(2, "height: %d\n", height);
+			get_next_line(fd, line);
+			assign_size(&global, line);
+			// dprintf(2, "width: %d\n", global.width);
+			// dprintf(2, "height: %d\n", global.height);
+			dprintf(2, "Plateau %d %d:\n", global.height, global.width);
+			free(*line);
+			i = 3;
 		}
-		dprintf(2, "LINE -----------------------%s\n", *line);
-		
+		// dprintf(2, "LINE -----------------------%s\n", *line);
+
 
 
 		//MAP CREATION
 
 
 		if (i == 3)
+		{
+			global.map = (int **)malloc(global.height * sizeof(int *));
+
+			get_next_line(fd, line);
+			free(*line);
+
+			while (j < global.height)
 			{
-				map = (int **)malloc(height * sizeof(int *));
-				while (j < height)
-				{
-					str = ft_strdup(*line);
-					str = str + 4;
-					// ft_putendl_fd(str, 2);
-					map[j] = fill_line(str, width);
-					get_next_line(fd, line);
-					j++;
-				}
-				print_map(map, width, height);
+				get_next_line(fd, line);
+				str = *line + 4;
+				// ft_putendl_fd(str, 2);
+				global.map[j] = fill_line(str, &global);
+				free(*line);
+				j++;
 			}
+			print_map(&global);
+			i += global.height;
+		}
+		if (i == global.height + 3)
+		{
+			dprintf(2, "assign shape\n");
+
+			int shape_width;
+			int shape_height;
+
+			get_next_line(fd, line);
+			str = *line + 6;
+			ft_putendl_fd(str, 2);
+			shape_width = ft_atoi(ft_strchr(str, ' '));
+			shape_height = ft_atoi(str);
+			j = 0;
+			global.shape = (char **)malloc(shape_height * sizeof(char *));
+			while (j < shape_height)
+			{
+				dprintf(2, "Shaping...\n");
+				get_next_line(fd, line);
+				// dprintf(2, "line %p\n", &line);
+				// dprintf(2, "*line : %s\n", *line);
+				global.shape[j] = ft_strdup(*line);
+				// dprintf(2, "shape: %s\n", global.shape[j]);
+				free(*line);
+				j++;
+			}
+			print_shape(&global, shape_height);
+		}
+
 
 		//RETURN
 
-		ft_putstr("2 2\n");
-		free(*line);
+
+		if (i == global.height + 2)
+		{
+			dprintf(2, "%s\n", "vtennero is writing...");
+			i = 297;
+			printf("%s\n", "2 2");
+		}
 		i++;
+		// }
 	}
 
-	free(*line);
-	free(line);
+	// free(*line);
+	// free(line);
 	dprintf(2, "%s\n", "END OF PLAYER VTENNERO");
 	return (0);
 }

@@ -14,6 +14,8 @@ NAME = vtennero.filler
 
 FLAGS = -Wall -Werror -Wextra
 
+SANITIZE = -g3 -fsanitize=address
+
 SRC = main.c
 
 PSRC = $(addprefix src/, $(SRC))
@@ -25,7 +27,7 @@ all: $(NAME)
 $(NAME):
 	@ make -C libft/
 	@ gcc -c $(FLAGS) $(PSRC) -I src/
-	@ gcc $(FLAGS) $(OBJ) libft/libft.a -o $(NAME)
+	@ gcc $(FLAGS) $(SANITIZE) $(OBJ) libft/libft.a -o $(NAME)
 	@ mv $(NAME) players/
 
 clean:
