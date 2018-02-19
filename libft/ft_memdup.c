@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_memdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vtennero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/19 13:41:41 by vtennero          #+#    #+#             */
-/*   Updated: 2018/02/19 13:41:44 by vtennero         ###   ########.fr       */
+/*   Created: 2018/02/19 13:42:11 by vtennero          #+#    #+#             */
+/*   Updated: 2018/02/19 13:42:12 by vtennero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(const void *content, size_t content_size)
+void	*ft_memdup(const void *s, size_t n)
 {
-	t_list	*lst;
+	void	*mem;
 
-	if ((lst = (t_list *)ft_memalloc(sizeof(t_list))))
-	{
-		if (content)
-		{
-			if (!(lst->content = ft_memdup(content, content_size)))
-			{
-				free(lst);
-				return (NULL);
-			}
-		}
-		lst->content_size = (content ? content_size : 0);
-	}
-	return (lst);
+	if (s && (mem = malloc(n)))
+		return (ft_memcpy(malloc(n), s, n));
+	return (NULL);
 }

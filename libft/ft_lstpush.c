@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lstpush.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vtennero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/19 13:41:41 by vtennero          #+#    #+#             */
-/*   Updated: 2018/02/19 13:41:44 by vtennero         ###   ########.fr       */
+/*   Created: 2018/02/19 13:41:51 by vtennero          #+#    #+#             */
+/*   Updated: 2018/02/19 13:41:53 by vtennero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(const void *content, size_t content_size)
+t_list	*ft_lstpush(t_list *lst, t_list *elem)
 {
-	t_list	*lst;
-
-	if ((lst = (t_list *)ft_memalloc(sizeof(t_list))))
+	if (lst)
 	{
-		if (content)
-		{
-			if (!(lst->content = ft_memdup(content, content_size)))
-			{
-				free(lst);
-				return (NULL);
-			}
-		}
-		lst->content_size = (content ? content_size : 0);
+		lst = ft_lstend(lst);
+		lst->next = elem;
+		if (elem)
+			elem->parent = lst;
 	}
-	return (lst);
+	return (elem);
 }

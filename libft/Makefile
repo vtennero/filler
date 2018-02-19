@@ -6,7 +6,7 @@
 #    By: vtennero <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/06/17 15:16:05 by vtennero          #+#    #+#              #
-#    Updated: 2018/02/11 17:38:40 by vtennero         ###   ########.fr        #
+#    Updated: 2018/02/19 11:24:50 by vtennero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,7 @@ SRC = ft_memcmp.c \
 	  ft_strcat.c \
 	  ft_strncmp.c \
 	  ft_memchr.c \
+	  ft_memdup.c \
 	  ft_strjoin_clr.c \
 	  ft_strchr.c \
 	  ft_strncpy.c \
@@ -70,6 +71,9 @@ SRC = ft_memcmp.c \
 	  ft_lstiter.c \
 	  ft_char_pos.c \
 	  ft_lstnew.c \
+	  ft_lstpush.c \
+	  ft_lstend.c \
+	  ft_lstsize.c \
 	  ft_lstdel.c \
 	  ft_lstdelone.c \
 	  ft_lstmap.c \
@@ -77,6 +81,7 @@ SRC = ft_memcmp.c \
 	  ft_abs.c \
 	  ft_abs_ll.c \
 	  ft_max.c \
+	  ft_min.c \
 	  ft_itoa.c \
 	  ft_ltoa.c \
 	  ft_lutoa.c \

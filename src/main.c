@@ -31,6 +31,115 @@ void		print_map(t_global *global)
 			j++;
 			if (j == global->width)
 				write(2, "\n", 1);
+			else
+				write(2, "\t", 1);
+		}
+		i++;
+	}
+}
+
+int		get_next_point(int *x, int *y, t_global *global)
+{
+	int		i;
+	int		j;
+
+	dprintf(2, "get_next_point(%d, %d)\n", *x, *y);
+	i = *y;
+	j = *x;
+	if (*y > global->height || *x > global->width)
+		return (0);
+	while (i < global->height)
+	{
+		while (j < global->width)
+			{
+				if (global->map[i][j] == -global->adversary)
+					{
+						dprintf(2, "get_next_point: adversary found on (%d, %d)\n", i, j);
+						*y = i;
+						*x = j;
+						return (1);
+					}
+				j++;
+			}
+		i++;
+		j = 0;
+	}
+	return (0);
+}
+
+// t_list	*create_territory(t_global *global)
+// {
+// 	t_list	*lst;
+// 	t_list	*tmp;
+// 	int	i;
+// 	int	j;
+
+// 	lst = NULL;
+// 	tmp = NULL;
+// 	i = 0;
+// 	j = 0;
+// 	while (i < global->height)
+// 	{
+// 		j = 0;
+// 		while (j < global->width)
+// 		{
+// 			if (global->map[i][j] == -global->adversary)
+// 			{
+// 				tmp = ft_lstpush(lst, ft_lstnew(global->map[i][j], sizeof(t_point)));
+// 				lst = (!(lst)) ? tmp : lst;
+// 				lst->parent->y = i;
+// 				lst->parent->x = j;
+// 			}
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	return (lst);
+// }
+
+void	assign_score(t_global *global)
+{
+	int	i;
+	int	j;
+	int	x;
+	int	y;
+
+	dprintf(2, "assign score\n");
+	i = 0;
+	j = 0;
+	x = 0;
+	y = 0;
+	while (i < global->height)
+	{
+		j = 0;
+		while (j < global->width)
+		{
+			while(get_next_point(&x, &y, global) == 1)
+			{
+				if (global->map[i][j] == 0)
+					{
+					global->map[i][j] = ft_abs(y - i) + ft_abs(x - j);
+					dprintf(2, "first assignment for (%d, %d) : %d\n", i, j, global->map[i][j]);
+					}
+				else if (global->map[i][j] > 0)
+					{
+					global->map[i][j] = ft_min(global->map[i][j], ft_abs(y - i) + ft_abs(x - j));
+					dprintf(2, "replacing (%d, %d) : %d\n", i, j, global->map[i][j]);
+					}
+				if (x < global->width)
+					x++;
+				if (x == global->width)
+				{
+					dprintf(2, "next line\n");
+					x = 0;
+					y++;
+				}
+				dprintf(2, "new value for (%d, %d) : %d\n", i, j, global->map[i][j]);
+			}
+			dprintf(2, "point done\n");
+			x = 0;
+			y = 0;
+			j++;
 		}
 		i++;
 	}
@@ -70,9 +179,15 @@ void	assign_player(t_global *global, char **line)
 	// write(2, &str[0], 1);
 	// write(2, "\n", 1);
 	if (str[0] == '1')
+	{
 		global->player = 1;
+		global->adversary = 2;
+	}
 	if (str[0] == '2')
+	{
 		global->player = 2;
+		global->adversary = 1;
+	}
 	else
 		ft_putendl_fd("player error", 2);
 
@@ -95,11 +210,11 @@ int		*fill_line(char *str, t_global *global)
 		if (str[j] == '.')
 			new_line[j] = 0;
 		else if (str[j] == 'O')
-			new_line[j] = 1;
+			new_line[j] = -1;
 		else if (str[j] == 'X')
-			new_line[j] = 2;
+			new_line[j] = -2;
 		else
-			new_line[j] = 7;
+			;
 		j++;
 	}
 	return (new_line);
@@ -115,6 +230,7 @@ int	main(void)
 	// int		**map;
 	char	*str;
 	t_global	global;
+	t_shape		*shape;
 
 	dprintf(2, "%s\n", "PLAYER VTENNERO");
 
@@ -182,6 +298,8 @@ int	main(void)
 				free(*line);
 				j++;
 			}
+			// adv_lst = create_territory(&global);
+			assign_score(&global);
 			print_map(&global);
 			i += global.height;
 		}
@@ -199,6 +317,7 @@ int	main(void)
 			shape_height = ft_atoi(str);
 			j = 0;
 			global.shape = (char **)malloc(shape_height * sizeof(char *));
+
 			while (j < shape_height)
 			{
 				dprintf(2, "Shaping...\n");
@@ -211,6 +330,7 @@ int	main(void)
 				j++;
 			}
 			print_shape(&global, shape_height);
+			lst_shape(&global, shape);
 		}
 
 

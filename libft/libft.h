@@ -6,7 +6,7 @@
 /*   By: vtennero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/17 15:25:20 by vtennero          #+#    #+#             */
-/*   Updated: 2018/02/11 17:40:42 by vtennero         ###   ########.fr       */
+/*   Updated: 2018/02/19 11:25:08 by vtennero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct		s_list
 {
 	void			*content;
 	size_t			content_size;
+	struct s_list	*parent;
 	struct s_list	*next;
 }					t_list;
 
@@ -82,6 +83,7 @@ void				ft_putchar_fd(char c, int fd);
 int					ft_abs(int n);
 long long			ft_abs_ll(long long n);
 int					ft_max(size_t n, size_t p);
+int					ft_min(size_t n, size_t p);
 int					ft_wcharlen(wchar_t c);
 int					ft_wcharlen(wchar_t c);
 int					ft_wstrlen(wchar_t *wstr);
@@ -96,6 +98,9 @@ t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
+size_t				ft_lstsize(t_list *lst);
+t_list				*ft_lstpush(t_list *lst, t_list *elem);
+t_list				*ft_lstend(t_list *lst);
 /*
 ** ------------------------- MEMORY MANIPULATION -------------------------
 */
@@ -105,6 +110,7 @@ void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 void				*ft_memset(void *b, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
+void				*ft_memdup(const void *s, size_t n);
 /*
 ** ------------------------- ITOA & ALII -------------------------
 */
