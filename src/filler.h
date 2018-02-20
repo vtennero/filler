@@ -40,7 +40,26 @@ typedef struct			s_shape
 {
 	int					x;
 	int					y;
-	struct s_list		*next;
+	struct s_shape		*next;
 }						t_shape;
+
+/*
+** ------------------------- PARSER -------------------------
+*/
+t_shape		*lst_shape(t_global *global, int height, int width);
+void		assign_score(t_global *global);
+void		assign_size(t_global *global, char **line);
+void		assign_player(t_global *global, char **line);
+int			*fill_line(char *str, t_global *global);
+/*
+** ------------------------- SOLVER -------------------------
+*/
+t_shape		*lst_valid_territory(t_global *global, t_shape *shape);
+/*
+** ------------------------- UTILITIES -------------------------
+*/
+void		print_map(t_global *global);
+void		print_coord_shape(t_shape *shape);
+void		print_shape(t_global *global, int shape_height);
 
 #endif
