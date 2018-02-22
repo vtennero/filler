@@ -66,24 +66,31 @@ void	assign_size(t_global *global, char **line)
 	global->height = ft_atoi(str);
 }
 
-void	assign_player(t_global *global, char **line)
+int		assign_player(t_global *global)
 {
+	char 	**line;
 	char	*str;
 
-	// dprintf(2, "assign_player\n");
+	line = (char **)malloc(sizeof(char *));
+	get_next_line(0, line);
 	str = *line + 10;
 	if (str[0] == '1')
 	{
 		global->player = 1;
 		global->adversary = 2;
 	}
-	if (str[0] == '2')
+	else if (str[0] == '2')
 	{
 		global->player = 2;
 		global->adversary = 1;
 	}
 	else
-		;
+		{
+			free(*line);
+			return (0);
+		}
+	free(*line);
+	return (1);
 }
 
 

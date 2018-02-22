@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-void		free_shape(t_global *global, int shape_height)
+void		free_objects(t_global *global, int shape_height)
 {
 	int		i;
 
@@ -20,6 +20,10 @@ void		free_shape(t_global *global, int shape_height)
 	while (i < shape_height)
 		free(global->shape[i++]);
 	free(global->shape);
+	i = 0;
+	while (i < global->height)
+		free (global->map[i++]);
+	free (global->map);
 }
 
 // int			get_shape()
@@ -66,16 +70,14 @@ int			main(void)
 	line = (char **)malloc(sizeof(char *));
 	ft_bzero(&global, sizeof(t_global));
 
-	get_next_line(0, line);
-	assign_player(&global, line);
-	free(*line);
+	if (assign_player(&global) == 0)
+		return (0);
 	while (1)
 	{
 		j = 0;			
 		get_next_line(0, line);
 		if (k == 1)
 			assign_size(&global, line);
-		free(*line);
 		global.map = (int **)malloc(global.height * sizeof(int *));
 		if (get_map(&global) == 0)
 			return (0);
@@ -98,11 +100,10 @@ int			main(void)
 		shape = lst_shape(&global, shape_height, shape_width);
 		if (solver(&global, shape) == 1)
 		{
-			free_shape(&global, shape_height);
+			free_objects(&global, shape_height);
 			write(1, "\n", 1);
 		}
 		k++;
 	}
-
 	return (0);
 }                  
