@@ -1,0 +1,177 @@
+# -------------- VM  version 1.1 ------------- #$
+#                                              #$
+# 42 / filler VM Developped by: Hcao - Abanlin #$
+#                                              #$
+# -------------------------------------------- #$
+launched players/superjeannot.filler$
+$$$ exec p1 : [players/superjeannot.filler]$
+launched players/vtennero.filler$
+$$$ exec p2 : [players/vtennero.filler]$
+Plateau 4 5:$
+    01234$
+000 .....$
+001 .O...$
+002 ..X..$
+003 .....$
+Piece 2 1:$
+*$
+*$
+<got (O): [1, 1]$
+Plateau 4 5:$
+    01234$
+000 .....$
+001 .o...$
+002 .oX..$
+003 .....$
+Piece 1 3:$
+***$
+<got (X): [2, 2]$
+Plateau 4 5:$
+    01234$
+000 .....$
+001 .O...$
+002 .Oxxx$
+003 .....$
+Piece 1 2:$
+**$
+<got (O): [1, 1]$
+Plateau 4 5:$
+    01234$
+000 .....$
+001 .oo..$
+002 .OXXX$
+003 .....$
+Piece 1 3:$
+***$
+Player with X: error on input$
+Piece 1 2:$
+**$
+<got (O): [1, 2]$
+Plateau 4 5:$
+    01234$
+000 .....$
+001 .Ooo.$
+002 .OXXX$
+003 .....$
+Piece 2 1:$
+*$
+*$
+<got (O): [2, 1]$
+Plateau 4 5:$
+    01234$
+000 .....$
+001 .OOO.$
+002 .oXXX$
+003 .o...$
+Piece 2 1:$
+*$
+*$
+<got (O): [0, 3]$
+Plateau 4 5:$
+    01234$
+000 ...o.$
+001 .OOo.$
+002 .OXXX$
+003 .O...$
+Piece 2 1:$
+*$
+*$
+<got (O): [0, 2]$
+Plateau 4 5:$
+    01234$
+000 ..oO.$
+001 .OoO.$
+002 .OXXX$
+003 .O...$
+Piece 1 2:$
+**$
+<got (O): [1, 3]$
+Plateau 4 5:$
+    01234$
+000 ..OO.$
+001 .OOoo$
+002 .OXXX$
+003 .O...$
+Piece 2 1:$
+*$
+*$
+<got (O): [0, 4]$
+Plateau 4 5:$
+    01234$
+000 ..OOo$
+001 .OOOo$
+002 .OXXX$
+003 .O...$
+Piece 2 2:$
+.*$
+**$
+<got (O): [0, 0]$
+Plateau 4 5:$
+    01234$
+000 .oOOO$
+001 ooOOO$
+002 .OXXX$
+003 .O...$
+Piece 1 2:$
+**$
+<got (O): [3, 1]$
+Plateau 4 5:$
+    01234$
+000 .OOOO$
+001 OOOOO$
+002 .OXXX$
+003 .oo..$
+Piece 2 1:$
+*$
+*$
+<got (O): [1, 0]$
+Plateau 4 5:$
+    01234$
+000 .OOOO$
+001 oOOOO$
+002 oOXXX$
+003 .OO..$
+Piece 2 1:$
+*$
+*$
+<got (O): [2, 0]$
+Plateau 4 5:$
+    01234$
+000 .OOOO$
+001 OOOOO$
+002 oOXXX$
+003 oOO..$
+Piece 1 3:$
+**.$
+<got (O): [3, 2]$
+Plateau 4 5:$
+    01234$
+000 .OOOO$
+001 OOOOO$
+002 OOXXX$
+003 OOoo.$
+Piece 2 1:$
+*$
+*$
+<got (O): [0, 0]$
+Plateau 4 5:$
+    01234$
+000 oOOOO$
+001 oOOOO$
+002 OOXXX$
+003 OOOO.$
+Piece 1 3:$
+.**$
+<got (O): [3, 2]$
+Plateau 4 5:$
+    01234$
+000 OOOOO$
+001 OOOOO$
+002 OOXXX$
+003 OOOoo$
+Piece 2 1:$
+*$
+*$
+<got (O): [0, 0]$
+== O fin: 15$
+== X fin: 1$

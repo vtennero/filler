@@ -17,9 +17,10 @@ FLAGS = -Wall -Werror -Wextra
 SANITIZE = -g3 -fsanitize=address
 
 SRC = main.c \
-		utilities.c \
 		parser.c \
-		solver.c
+		generate_map.c \
+		solver.c \
+		all_checks.c
 
 PSRC = $(addprefix src/, $(SRC))
 

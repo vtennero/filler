@@ -17,15 +17,12 @@ void		print_map(t_global *global)
 	int		i;
 	int		j;
 
-	dprintf(2, "PRINT MAP\n");
 	i = 0;
 	while (i < global->height)
 	{
-		// dprintf(2, "line[%d]\n", i);
 		j = 0;
 		while (j < global->width)
 		{
-			// dprintf(2, "map[%d][%d] = %d\n", i, j, map[i][j]);
 			dprintf(2, "%d", global->map[i][j]);
 			j++;
 			if (j == global->width)
@@ -50,10 +47,17 @@ void		print_shape(t_global *global, int shape_height)
 {
 	int		j;
 
-	dprintf(2, "PRINT SHAPE\n");
 	j = 0;
 	while (j < shape_height)
 	{
 		dprintf(2, "%s\n", global->shape[j++]);
 	}	
+}
+
+void		print_optimal_coord(int x, int y)
+{
+	ft_putnbr(y);
+	write(1, " ", 1);
+	ft_putnbr(x);
+	write(1, "\n", 1);
 }

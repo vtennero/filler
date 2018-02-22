@@ -6,13 +6,66 @@
 /*   By: vtennero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 16:44:44 by vtennero          #+#    #+#             */
-/*   Updated: 2018/02/20 16:44:46 by vtennero         ###   ########.fr       */
+/*   Updated: 2018/02/22 17:26:22 by vtennero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-t_shape		*lst_valid_territory(t_global *global, t_shape *shape)
+static void		print_optimal_coord(int x, int y)
 {
-	
+	ft_putnbr(y);
+	write(1, " ", 1);
+	ft_putnbr(x);
+}
+
+static int		get_best_score(t_global *global, t_shape *s, t_point *spot)
+{
+	int			score;
+	int			i;
+	int			j;
+
+	i = 0;
+	j = 0;
+	while (i < global->height)
+	{
+		j = 0;
+		while (j < global->width)
+		{
+			if (all_checks(global, s, &score, j, i) == 1)
+			{
+				if (spot->score == 0 || score < spot->score)
+				{
+					spot->score = score;
+					spot->x = j;
+					spot->y = i;
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+int				solver(t_global *global, t_shape *shape)
+{
+	t_point		*best_spot;
+	int			x;
+	int			y;
+
+	best_spot = malloc(sizeof(t_point));
+	best_spot->score = 0;
+	best_spot->x = 0;
+	best_spot->y = 0;
+	if (get_best_score(global, shape, best_spot) == 1)
+	{
+		x = best_spot->x;
+		y = best_spot->y;
+		free(shape);
+		free(best_spot);
+		print_optimal_coord(x, y);
+		return (1);
+	}
+	return (0);
 }
