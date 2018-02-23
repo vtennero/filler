@@ -6,7 +6,7 @@
 /*   By: vtennero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 16:24:35 by vtennero          #+#    #+#             */
-/*   Updated: 2018/02/22 17:29:13 by vtennero         ###   ########.fr       */
+/*   Updated: 2018/02/23 18:03:53 by vtennero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_shape		*lst_shape(t_global *global, int height, int width)
 			{
 				if (size == 0)
 				{
-					// dprintf(2, "creating 1st point\n");
 					shape = (t_shape *)malloc(sizeof(t_shape));
 					shape->x = j;
 					shape->y = i;
@@ -39,13 +38,11 @@ t_shape		*lst_shape(t_global *global, int height, int width)
 				}
 				else
 				{
-					// dprintf(2, "creating point %d\n", size + 1);
 					shape->next = (t_shape *)malloc(sizeof(t_shape));
 					shape->next->x = j;
 					shape->next->y = i;
 					shape = shape->next;
 				}
-				// dprintf(2, "point %d : (%d, %d)\n", size + 1, j, i);
 				size++;
 			}
 			j++;
@@ -56,19 +53,25 @@ t_shape		*lst_shape(t_global *global, int height, int width)
 	return (tmp);
 }
 
-void	assign_size(t_global *global, char **line)
+void		assign_size(t_global *global, int k)
 {
 	char	*str;
+	char	**line;
 
-	// dprintf(2, "assign_size\n");
-	str = *line + 8;
-	global->width = ft_atoi(ft_strchr(str, ' '));
-	global->height = ft_atoi(str);
+	line = (char **)malloc(sizeof(char *));
+	get_next_line(0, line);
+	if (k == 1)
+	{
+		str = *line + 8;
+		global->width = ft_atoi(ft_strchr(str, ' '));
+		global->height = ft_atoi(str);
+	}
+	free(*line);
 }
 
-int		assign_player(t_global *global)
+int			assign_player(t_global *global)
 {
-	char 	**line;
+	char	**line;
 	char	*str;
 
 	line = (char **)malloc(sizeof(char *));
@@ -85,12 +88,10 @@ int		assign_player(t_global *global)
 		global->adversary = 1;
 	}
 	else
-		{
-			free(*line);
-			return (0);
-		}
+	{
+		free(*line);
+		return (0);
+	}
 	free(*line);
 	return (1);
 }
-
-

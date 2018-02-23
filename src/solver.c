@@ -32,7 +32,7 @@ static int		get_best_score(t_global *global, t_shape *s, t_point *spot)
 		j = 0;
 		while (j < global->width)
 		{
-			if (all_checks(global, s, &score, j, i) == 1)
+			if ((score = all_checks(global, s, j, i)) >= 1)
 			{
 				if (spot->score == 0 || score < spot->score)
 				{

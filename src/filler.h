@@ -46,15 +46,14 @@ typedef struct		s_shape
 ** ------------------------- PARSER -------------------------
 */
 int					assign_player(t_global *global);
-void				assign_size(t_global *global, char **line);
+void				assign_size(t_global *global, int k);
 int					get_map(t_global *global);
 t_shape				*lst_shape(t_global *global, int height, int width);
 /*
 ** ------------------------- SOLVER -------------------------
 */
 int					solver(t_global *global, t_shape *shape);
-int					all_checks(t_global *global, t_shape *shape, int *score, \
-	int x, int y);
+int					all_checks(t_global *global, t_shape *shape, int x, int y);
 /*
 ** ------------------------- UTILITIES -------------------------
 */
