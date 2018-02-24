@@ -6,7 +6,7 @@
 /*   By: vtennero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/24 12:33:20 by vtennero          #+#    #+#             */
-/*   Updated: 2018/02/24 13:05:23 by vtennero         ###   ########.fr       */
+/*   Updated: 2018/02/24 22:21:48 by vtennero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int				get_shape(t_global *global, int shape_height)
 	while (j < shape_height)
 	{
 		if (!get_next_line(0, &line))
+		{
+			free(global->shape);
 			return (0);
+		}
 		global->shape[j] = ft_strdup(line);
 		free(line);
 		j++;

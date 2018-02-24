@@ -34,7 +34,6 @@ $(NAME):
 	@ make -C libft/
 	@ gcc -c $(FLAGS) $(PSRC) -I src/
 	@ gcc $(FLAGS) $(OBJ) libft/libft.a -o $(NAME)
-	@ mv $(NAME) players/
 
 clean:
 	@ /bin/rm -f $(OBJ)
@@ -43,7 +42,7 @@ clean:
 fclean:
 	@ make clean
 	@ make -C libft/ fclean
-	@ /bin/rm -f players/$(NAME)
+	@ /bin/rm -f $(NAME)
 
 re:
 	@ make fclean
