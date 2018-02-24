@@ -12,6 +12,19 @@
 
 #include "filler.h"
 
+static void		free_objects(t_shape *start, t_point *best_spot)
+{
+	t_shape		*tmp;
+
+	while (start)
+	{
+		tmp = start->next;
+		free(start);
+		start = tmp;
+	}
+	free(best_spot);
+}
+
 static void		print_optimal_coord(int x, int y)
 {
 	ft_putnbr(y);
@@ -54,6 +67,8 @@ int				solver(t_global *global, t_shape *shape)
 	int			x;
 	int			y;
 
+	if (!shape)
+		return (0);
 	best_spot = malloc(sizeof(t_point));
 	best_spot->score = 0;
 	best_spot->x = 0;
@@ -62,10 +77,10 @@ int				solver(t_global *global, t_shape *shape)
 	{
 		x = best_spot->x;
 		y = best_spot->y;
-		free(shape);
-		free(best_spot);
+		free_objects(shape, best_spot);
 		print_optimal_coord(x, y);
 		return (1);
 	}
+	free(best_spot);
 	return (0);
 }

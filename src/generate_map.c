@@ -89,15 +89,18 @@ static int	*fill_line(char *str, t_global *global)
 
 	j = 0;
 	new_line = (int *)malloc(global->width * sizeof(int));
-	while (j < global->width)
+	if (new_line)
 	{
-		if (str[j] == 'O')
-			new_line[j] = -1;
-		else if (str[j] == 'X')
-			new_line[j] = -2;
-		else
-			new_line[j] = 0;
-		j++;
+		while (j < global->width)
+		{
+			if (str[j] == 'O')
+				new_line[j] = -1;
+			else if (str[j] == 'X')
+				new_line[j] = -2;
+			else
+				new_line[j] = 0;
+			j++;
+		}
 	}
 	return (new_line);
 }
@@ -105,21 +108,20 @@ static int	*fill_line(char *str, t_global *global)
 int			get_map(t_global *global)
 {
 	int		i;
-	char	**line;
+	char	*line;
 	char	*str;
 
 	i = 0;
-	line = (char **)malloc(sizeof(char *));
-	get_next_line(0, line);
-	free(*line);
+	if (!get_next_line(0, &line) || !global->map)
+		return (0);
+	free(line);
 	while (i < global->height)
 	{
-		get_next_line(0, line);
-		str = *line + 4;
-		if (!*line)
+		if (!get_next_line(0, &line))
 			return (0);
+		str = line + 4;
 		global->map[i] = fill_line(str, global);
-		free(*line);
+		free(line);
 		i++;
 	}
 	assign_score(global);

@@ -102,14 +102,62 @@ SRC = ft_memcmp.c \
 	  ft_eq_char.c \
 	  get_next_line.c
 
-OBJ = $(SRC:.c=.o)
+FT_PRINTF_SRC = ft_printf/ft_printf.c \
+	   ft_printf/ft_format.c \
+	   ft_printf/ft_create_params.c \
+	   ft_printf/ft_set_params.c \
+	   ft_printf/ft_override_params.c \
+	   ft_printf/ft_override_length.c \
+	   ft_printf/ft_prop_cast.c \
+	   ft_printf/ft_is_s.c \
+	   ft_printf/ft_is_d.c \
+	   ft_printf/ft_is_c.c \
+	   ft_printf/ft_is_u.c \
+	   ft_printf/ft_is_o.c \
+	   ft_printf/ft_is_p.c \
+	   ft_printf/ft_is_x.c \
+	   ft_printf/ft_is_cap_s.c \
+	   ft_printf/ft_is_s_perc.c \
+	   ft_printf/ft_unicode.c \
+	   ft_printf/ft_precision.c \
+	   ft_printf/ft_width.c \
+	   ft_printf/ft_prepend_or_append.c \
+	   ft_printf/ft_left_or_right.c \
+	   ft_printf/ft_print_buffer.c \
+
+FT_PRINTF_OBJ = ft_printf.o \
+	   ft_format.o \
+	   ft_create_params.o \
+	   ft_set_params.o \
+	   ft_override_params.o \
+	   ft_override_length.o \
+	   ft_prop_cast.o \
+	   ft_is_s.o \
+	   ft_is_d.o \
+	   ft_is_c.o \
+	   ft_is_u.o \
+	   ft_is_o.o \
+	   ft_is_p.o \
+	   ft_is_x.o \
+	   ft_is_cap_s.o \
+	   ft_is_s_perc.o \
+	   ft_unicode.o \
+	   ft_precision.o \
+	   ft_width.o \
+	   ft_prepend_or_append.o \
+	   ft_left_or_right.o \
+	   ft_print_buffer.o \
+
+OBJ = $(SRC:.c=.o) $(FT_PRINTF_OBJ)
 
 HEADER = /libft.h
+
+FT_PRINTF_HEADER = ft_printf/ft_printf.h
 
 all: $(NAME)
 
 $(NAME):
-	@ gcc $(FLAGS) -c $(SRC) -I$(HEADER)
+	@ gcc $(FLAGS) -c $(SRC) $(FT_PRINTF_SRC) -I$(HEADER) $(FT_PRINTF_HEADER)
 	@ ar rc $(NAME) $(OBJ)
 
 clean:

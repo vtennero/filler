@@ -1,0 +1,9 @@
+$$$ exec p2 : [players/vtennero.filler]
+Plateau 4 4:
+    0123
+000 O.5.
+001 ....
+....
+003 ...X
+Piece 1 2:
+**

@@ -16,6 +16,7 @@
 # define BUFF_SIZE 4
 
 # include "libft.h"
+# include "ft_printf/ft_printf.h"
 # include <unistd.h>
 # include <string.h>
 # include <stdlib.h>

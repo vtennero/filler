@@ -26,7 +26,6 @@ typedef struct		s_point
 
 typedef struct		s_global
 {
-	t_point			point;
 	int				height;
 	int				width;
 	int				player;
@@ -46,16 +45,21 @@ typedef struct		s_shape
 ** ------------------------- PARSER -------------------------
 */
 int					assign_player(t_global *global);
-void				assign_size(t_global *global, int k);
+int					assign_size(t_global *global, int k);
 int					get_map(t_global *global);
-t_shape				*lst_shape(t_global *global, int height, int width);
+int					get_shape_size(int *shape_height, int *shape_width);
+int					get_shape(t_global *global, int shape_height);
+t_shape				*build_shape(t_global *global, int height, int width);
 /*
 ** ------------------------- SOLVER -------------------------
 */
-int					solver(t_global *global, t_shape *shape);
 int					all_checks(t_global *global, t_shape *shape, int x, int y);
+int					solver(t_global *global, t_shape *shape);
 /*
 ** ------------------------- UTILITIES -------------------------
 */
+void				print_shape(t_global *global, int shape_height);
+void				print_coord_shape(t_shape *shape);
+void				print_map(t_global *global);
 
 #endif

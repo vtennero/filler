@@ -17,10 +17,12 @@ FLAGS = -Wall -Werror -Wextra
 SANITIZE = -g3 -fsanitize=address
 
 SRC = main.c \
-		parser.c \
+		shape_parser.c \
+		other_parser.c \
 		generate_map.c \
 		solver.c \
-		all_checks.c
+		all_checks.c \
+		utilities.c
 
 PSRC = $(addprefix src/, $(SRC))
 
@@ -31,7 +33,7 @@ all: $(NAME)
 $(NAME):
 	@ make -C libft/
 	@ gcc -c $(FLAGS) $(PSRC) -I src/
-	@ gcc $(FLAGS) $(SANITIZE) $(OBJ) libft/libft.a -o $(NAME)
+	@ gcc $(FLAGS) $(OBJ) libft/libft.a -o $(NAME)
 	@ mv $(NAME) players/
 
 clean:

@@ -12,33 +12,53 @@
 
 #include "filler.h"
 
+static void	print_title(void)
+{
+	ft_dprintf(2, "\e[1;1H\e[2J");
+	ft_dprintf(2, "\n\n");
+	ft_dprintf(2, "\t\x1b[38;5;1m (           (    (                \n");
+	ft_dprintf(2, "\t )\\ )   (    )\\   )\\     (    (    \n");
+	ft_dprintf(2, "\t(()/(   )\\  ((_) ((_)   ))\\   )(   \n");
+	ft_dprintf(2, "\t /(_)) ((_)  _    _    /((_) (()\\  \n");
+	ft_dprintf(2, "\t(_) _|  (_) | |  | |  (_))    ((_) \n");
+	ft_dprintf(2, "\t |  _|  | | | |  | |  / -_)  | '_| \n");
+	ft_dprintf(2, "\t |_|    |_| |_|  |_|  \\___|  |_|   \x1b[0m\n");
+	ft_dprintf(2, "\n\x1b[38;5;87m  ▽\x1b[0m : Player 1\n");
+	ft_dprintf(2, "\x1b[38;5;220m  △\x1b[0m : Player 2\n\n");
+}
+
 void		print_map(t_global *global)
 {
 	int		i;
 	int		j;
 
 	i = 0;
+	print_title();
 	while (i < global->height)
 	{
 		j = 0;
 		while (j < global->width)
 		{
-			dprintf(2, "%d", global->map[i][j]);
+			if (global->map[i][j] == -1)
+				ft_dprintf(2, "\x1b[38;5;87m  ▽\x1b[0m");
+			else if (global->map[i][j] == -2)
+				ft_dprintf(2, "\x1b[38;5;220m  △\x1b[0m");
+			else
+				ft_dprintf(2, "%3d", global->map[i][j]);
 			j++;
 			if (j == global->width)
 				write(2, "\n", 1);
-			else
-				write(2, "\t", 1);
 		}
 		i++;
 	}
+	ft_dprintf(2, "\n\n");
 }
 
 void		print_coord_shape(t_shape *shape)
 {
 	while (shape)
 	{
-		dprintf(2, "(%d, %d)\n", shape->x, shape->y);
+		ft_dprintf(2, "(%d, %d)\n", shape->x, shape->y);
 		shape = shape->next;
 	}
 }
@@ -50,14 +70,6 @@ void		print_shape(t_global *global, int shape_height)
 	j = 0;
 	while (j < shape_height)
 	{
-		dprintf(2, "%s\n", global->shape[j++]);
-	}	
-}
-
-void		print_optimal_coord(int x, int y)
-{
-	ft_putnbr(y);
-	write(1, " ", 1);
-	ft_putnbr(x);
-	write(1, "\n", 1);
+		ft_dprintf(2, "%s\n", global->shape[j++]);
+	}
 }

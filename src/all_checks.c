@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-int				is_in_map(t_global *global, t_shape *shape, int x, int y)
+static int		is_in_map(t_global *global, t_shape *shape, int x, int y)
 {
 	while (shape)
 	{
@@ -26,7 +26,7 @@ int				is_in_map(t_global *global, t_shape *shape, int x, int y)
 	return (1);
 }
 
-int				is_valid_overlap(t_global *global, t_shape *shape, int x, int y)
+static int		is_valid_overlap(t_global *global, t_shape *shape, int x, int y)
 {
 	int			overlap;
 	int			counter;
@@ -47,7 +47,7 @@ int				is_valid_overlap(t_global *global, t_shape *shape, int x, int y)
 	return (overlap);
 }
 
-int				no_collision_adv(t_global *global, t_shape *shape, int x, int y)
+static int		no_collision_adv(t_global *global, t_shape *shape, int x, int y)
 {
 	while (shape)
 	{
@@ -60,7 +60,7 @@ int				no_collision_adv(t_global *global, t_shape *shape, int x, int y)
 	return (1);
 }
 
-int				get_score(t_global *global, t_shape *shape, int x, int y)
+static int		get_score(t_global *global, t_shape *shape, int x, int y)
 {
 	int			sum;
 
