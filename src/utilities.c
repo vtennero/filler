@@ -6,7 +6,7 @@
 /*   By: vtennero <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 16:22:03 by vtennero          #+#    #+#             */
-/*   Updated: 2018/02/20 16:22:06 by vtennero         ###   ########.fr       */
+/*   Updated: 2018/02/26 16:47:44 by vtennero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void		print_map(t_global *global)
 				write(2, "\n", 1);
 		}
 		i++;
+		nanosleep((const struct timespec[]){{0, 100000000L}}, NULL);
 	}
 	ft_dprintf(2, "\n\n");
 }
